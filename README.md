@@ -14,7 +14,7 @@ npx install create-react-app
 
 ```bash
 const api = {
-	key: "",
+	key: "",`
 	base: "https://api.openweathermap.org/data/2.5/"
 }
 ```
@@ -34,7 +34,7 @@ function App() {
 
   const search = evt => {
     if (evt.key === "Enter") {
-      fetch(`${api.base}weather?q=${query}&units=imperial&appid=${api.key}`)
+      fetch(`${api.base}weather?q=${query}&units=metric&appid=${api.key}`)
         .then(res => res.json())
         .then(result => {
           setWeather(result);
@@ -106,7 +106,7 @@ body {
 .app {
   background-image: url('./assets/cold-bg.jpg');
   background-size: cover;
-  background-position: bottom;
+  background-position: center;
   transition: 0.4 ease;
 }
 
@@ -135,12 +135,12 @@ main {
   border: none;
   outline: none;
 
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 0px 0px 16px 16px;
-  margin-top: -25px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  margin-top: 0px;
 
   box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
-  
+
   color: #313131;
   font-size: 20px;
 
