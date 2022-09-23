@@ -198,7 +198,9 @@ main {
 }
 ```
 
-- 완성되면 검색창 화면에 국가나 도시 이름을 입력하면 정보가 출력됩니다.
+## **💾 완성 화면**
+
+- 완성된 후 검색창에 국가나 도시 이름을 입력하면(ex: Seoul, London, Paris) 정보가 출력됩니다.
 
  | <img align="center" src="https://user-images.githubusercontent.com/95972251/191903631-35c36bb9-38da-406c-b9a0-154d1670a8e0.png" alt="warm" /> | <img align="center" src="https://user-images.githubusercontent.com/95972251/191903639-ab5138e9-1e6c-482a-adda-72d6b8742d7e.png" alt="cool" /> |
  | ------------- | ------------- |
