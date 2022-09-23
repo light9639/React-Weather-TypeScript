@@ -1,5 +1,5 @@
 # **:zap: React-Weather 템플릿**
-<img src="https://user-images.githubusercontent.com/95972251/191897597-fe00b646-d2de-4556-b586-12642901ebb6.png" alt="weather" width="50%" />
+<img src="https://assets.zabbix.com/img/brands/openweather.jpg" alt="weather" width="50%" />
 
 **:sparkles: <a href="https://light9639.github.io/React-Weather/">React-Weather 템플릿</a> :sparkles:**
 
@@ -198,7 +198,10 @@ main {
 }
 ```
 
-- 완성되면 검색창 화면에 국가나 도시 이름을 입력하면 정보가 출력된다.
+- 완성되면 검색창 화면에 국가나 도시 이름을 입력하면 정보가 출력됩니다.
+
+ | <img align="center" src="https://user-images.githubusercontent.com/95972251/191903631-35c36bb9-38da-406c-b9a0-154d1670a8e0.png" alt="warm" /> | <img align="center" src="https://user-images.githubusercontent.com/95972251/191903639-ab5138e9-1e6c-482a-adda-72d6b8742d7e.png" alt="cool" /> |
+ | ------------- | ------------- |
 
 ## **:paperclip: 출처**
 - 출처1 : <a href="https://velog.io/@hongcoder/React%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Weather-App-%EB%A7%8C%EB%93%A4%EA%B8%B0">velog 링크</a>
