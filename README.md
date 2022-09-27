@@ -1,7 +1,8 @@
 # **:zap: React-Weather 템플릿**
-<img src="https://assets.zabbix.com/img/brands/openweather.jpg" alt="weather" width="50%" />
+:octocat: 바로가기 : https://light9639.github.io/React-Weather/ <br /><br />
+<img src="https://assets.zabbix.com/img/brands/openweather.jpg" alt="weather" width="500px" />
 
-**:sparkles: <a href="https://light9639.github.io/React-Weather/">React-Weather 템플릿</a> :sparkles:**
+**:sparkles: React-Weather 템플릿 :sparkles:**
 
 ## **📋 작성법**
 - 우선 리액트 프로젝트를 생성합니다.
