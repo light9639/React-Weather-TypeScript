@@ -1,9 +1,9 @@
-# ☀️ React-Weather 템플릿입니다.
-:octocat: 바로가기 : https://light9639.github.io/React-Weather/ <br /><br />
+# ☀️ React-Weather-TypeScript 템플릿입니다.
+:octocat: 바로가기 : https://light9639.github.io/React-Weather-TypeScript/ <br /><br />
 
 <img src="https://assets.zabbix.com/img/brands/openweather.jpg" alt="weather" width="500px" />
 
-**:sparkles: ☀️ React-Weather 템플릿입니다. :sparkles:**
+**:sparkles: ☀️ React-Weather-TypeScript 템플릿입니다. :sparkles:**
 ## :tada: React 프로젝트 생성
 - React 생성
 ```bash
