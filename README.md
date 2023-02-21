@@ -1,211 +1,235 @@
-# **:zap: React-Weather 템플릿**
+# ☀️ React-Weather 템플릿입니다.
 :octocat: 바로가기 : https://light9639.github.io/React-Weather/ <br /><br />
+
 <img src="https://assets.zabbix.com/img/brands/openweather.jpg" alt="weather" width="500px" />
 
-**:sparkles: React-Weather 템플릿 :sparkles:**
+**:sparkles: ☀️ React-Weather 템플릿입니다. :sparkles:**
+## :tada: React 프로젝트 생성
+- React 생성
+```bash
+npm create-react-app my-app
+# or
+yarn create react-app my-app
+```
 
-## **📋 작성법**
-- 우선 리액트 프로젝트를 생성합니다.
+- vite를 이용하여 프로젝트를 생성하려면
+```bash
+npm create vite@latest
+# or
+yarn create vite
+```
+- 터미널에서 실행 후 프로젝트 이름 만든 후 React 선택, Typescirpt-SWC 선택하면 생성 완료.
+## ⚙️ 'openweathermap' 사이트에서 API 발급받기
+- `openweathermap` 홈페이지를 가입하고 `current weather data API`를 받아온다.
+- 발급받은 `key` 값을 `App.tsx` 상단에 밑의 코드처럼 넣으면 된다.
+```bash
+const api = {
+   key: {발급받은 키 값},`
+   base: "https://api.openweathermap.org/data/2.5/"
+}
+```
+## ✒️ index.html, App.tsx 수정 및 작성
+### ⚡ App.tsx
+- `api` 변수를 지정해서 개인 고유의 `key`값과 `url`의 값을 지정해준다.
+- `useEffect` 안에 `fetch` 함수를 사용하여 로드 시 서울이 나오도록 설정함.
+- `search` 함수를 사용하여 도시나 국가명을 영어로 검색했을 한 뒤 `Enter`를 누르면 작동하도록 설정함.
+```typescript
+import React, { useEffect, useState, KeyboardEvent } from 'react';
 
-	```bash
-	npx install create-react-app
-	```
+// api 가져와서 사용하기.
+const api = {
+  key: "3301b70063f21cb2c74340e57c4ac48e",
+  base: "https://api.openweathermap.org/data/2.5/"
+}
 
-- openweathermap 홈페이지를 가입하고 current weather data API를 받아오자.
+export default function App(): JSX.Element {
+  const [query, setQuery] = useState<string>('');
+  const [weather, setWeather] = useState<any>({});
 
-	```bash
-	const api = {
-		key: "",`
-		base: "https://api.openweathermap.org/data/2.5/"
-	}
-	```
+  // 로드 시 서울이 나오도록 설정함.
+  useEffect(() => {
+    fetch(`${api.base}weather?q=Seoul&units=metric&appid=${api.key}`)
+      .then(res => res.json())
+      .then(result => {
+        setWeather(result);
+        setQuery('');
+        console.log(result);
+      });
+  }, []);
 
-- api 변수를 지정해서 개인 고유의 key값과 url의 값을 지정해주고, functional 컴포넌트로 시작한다.
+  // onClick시 작동하도록 설정함.
+  const search = (evt: KeyboardEvent<HTMLInputElement>) => {
+    if (evt.key === "Enter") {
+      fetch(`${api.base}weather?q=${query}&units=metric&appid=${api.key}`)
+        .then(res => res.json())
+        .then(result => {
+          setWeather(result);
+          setQuery('');
+          console.log(result);
+        });
+    }
+  }
 
-	```bash
-	import React, { useState } from 'react';
-	const api = {
-	  key: "3301b70063f21cb2c74340e57c4ac48e",
-	  base: "https://api.openweathermap.org/data/2.5/"
-	}
+  // 날짜를 가져오는 함수 모음
+  const dateBuilder = (d: Date) => {
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-	function App() {
-	  const [query, setQuery] = useState('');
-	  const [weather, setWeather] = useState({});
+    let day = days[d.getDay()];
+    let date = d.getDate();
+    let month = months[d.getMonth()];
+    let year = d.getFullYear();
 
-	  const search = evt => {
-	    if (evt.key === "Enter") {
-	      fetch(`${api.base}weather?q=${query}&units=metric&appid=${api.key}`)
-		.then(res => res.json())
-		.then(result => {
-		  setWeather(result);
-		  setQuery('');
-		  console.log(result);
-		});
-	    }
-	  }
+    return `${day} ${date} ${month} ${year}`
+  }
 
-	  const dateBuilder = (d) => {
-	    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-	    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  return (
+    <div className={(typeof weather.main != "undefined") ? ((weather.main.temp > 16) ? 'app warm' : 'app') : 'app'}>
+      <main>
+        <div className="search-box">
+          <input
+            type="text"
+            className="search-bar"
+            placeholder="Search..."
+            onChange={e => setQuery(e.target.value)}
+            value={query}
+            onKeyPress={search}
+          />
+        </div>
+        {(typeof weather.main != "undefined") ? (
+          <div>
+            <div className="location-box">
+              <div className="location">{weather.name}, {weather.sys.country}</div>
+              <div className="date">{dateBuilder(new Date())}</div>
+            </div>
+            <div className="weather-box">
+              <div className="temp">
+                {Math.round(weather.main.temp)}°c
+              </div>
+              <div className="weather">{weather.weather[0].main}</div>
+            </div>
+          </div>
+        ) : ('')}
+      </main>
+    </div>
+  );
+}
+```
+### ⚡ App.css
+- `App.tsx`의 `CSS`를 추가하여 스타일링하기
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-	    let day = days[d.getDay()];
-	    let date = d.getDate();
-	    let month = months[d.getMonth()];
-	    let year = d.getFullYear();
+body {
+  font-family: 'Montserrat', sans-serif;
+}
 
-	    return `${day} ${date} ${month} ${year}`
-	  }
+.app {
+  background-image: url('./assets/cold-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  transition: 0.4 ease;
+}
 
-	  return (
-	    <div className={(typeof weather.main != "undefined") ? ((weather.main.temp > 16) ? 'app warm' : 'app') : 'app'}>
-	      <main>
-		<div className="search-box">
-		  <input
-		    type="text"
-		    className="search-bar"
-		    placeholder="Search..."
-		    onChange={e => setQuery(e.target.value)}
-		    value={query}
-		    onKeyPress={search}
-		  />
-		</div>
-		{(typeof weather.main != "undefined") ? (
-		  <div>
-		    <div className="location-box">
-		      <div className="location">{weather.name}, {weather.sys.country}</div>
-		      <div className="date">{dateBuilder(new Date())}</div>
-		    </div>
-		    <div className="weather-box">
-		      <div className="temp">
-			{Math.round(weather.main.temp)}°c
-		      </div>
-		      <div className="weather">{weather.weather[0].main}</div>
-		    </div>
-		  </div>
-		) : ('')}
-	      </main>
-	    </div>
-	  );
-	}
+.app.warm {
+  background-image: url('./assets/warm-bg.jpg');
+}
 
-	export default App;
-	```
+main {
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.75));
+  padding: 25px;
+}
 
-- Css 추가
-	```bash
-	* {
-	  margin: 0;
-	  padding: 0;
-	  box-sizing: border-box;
-	}
+.search-box {
+  width: 100%;
+  margin: 0 0 75px;
+}
 
-	body {
-	  font-family: 'Montserrat', sans-serif;
-	}
+.search-box .search-bar {
+  display: block;
+  width: 100%;
+  padding: 15px;
 
-	.app {
-	  background-image: url('./assets/cold-bg.jpg');
-	  background-size: cover;
-	  background-position: center;
-	  transition: 0.4 ease;
-	}
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
 
-	.app.warm {
-	  background-image: url('./assets/warm-bg.jpg');
-	}
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  margin-top: 0px;
 
-	main {
-	  min-height: 100vh;
-	  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.75));
-	  padding: 25px;
-	}
+  box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
 
-	.search-box {
-	  width: 100%;
-	  margin: 0 0 75px;
-	}
+  color: #313131;
+  font-size: 20px;
 
-	.search-box .search-bar {
-	  display: block;
-	  width: 100%;
-	  padding: 15px;
+  transition: 0.4s ease;
+}
 
-	  appearance: none;
-	  background: none;
-	  border: none;
-	  outline: none;
+.search-box .search-bar:focus {
+  background-color: rgba(255, 255, 255, 0.75);
+}
 
-	  background-color: rgba(255, 255, 255, 0.9);
-	  border-radius: 5px;
-	  margin-top: 0px;
+.location-box .location {
+  color: #FFF;
+  font-size: 32px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
+}
 
-	  box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
+.location-box .date {
+  color: #FFF;
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+  text-shadow: 2px 2px rgba(50, 50, 70, 0.5);
+}
 
-	  color: #313131;
-	  font-size: 20px;
+.weather-box {
+  text-align: center;
+}
 
-	  transition: 0.4s ease;
-	}
+.weather-box .temp {
+  position: relative;
+  display: inline-block;
+  margin: 30px auto;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
 
-	.search-box .search-bar:focus {
-	  background-color: rgba(255, 255, 255, 0.75);
-	}
+  padding: 15px 25px;
 
-	.location-box .location {
-	  color: #FFF;
-	  font-size: 32px;
-	  font-weight: 500;
-	  text-align: center;
-	  text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
-	}
+  color: #FFF;
+  font-size: 102px;
+  font-weight: 900;
 
-	.location-box .date {
-	  color: #FFF;
-	  font-size: 20px;
-	  font-weight: 300;
-	  font-style: italic;
-	  text-align: center;
-	  text-shadow: 2px 2px rgba(50, 50, 70, 0.5);
-	}
+  text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
+  text-align: center;
+  box-shadow: 3px 6px rgba(0, 0, 0, 0.2);
+}
 
-	.weather-box {
-	  text-align: center;
-	}
+.weather-box .weather {
+  color: #FFF;
+  font-size: 48px;
+  font-weight: 700;
+  text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
+}
+```
 
-	.weather-box .temp {
-	  position: relative;
-	  display: inline-block;
-	  margin: 30px auto;
-	  background-color: rgba(255, 255, 255, 0.2);
-	  border-radius: 16px;
+## 💾 완성 화면
 
-	  padding: 15px 25px;
-
-	  color: #FFF;
-	  font-size: 102px;
-	  font-weight: 900;
-
-	  text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
-	  text-align: center;
-	  box-shadow: 3px 6px rgba(0, 0, 0, 0.2);
-	}
-
-	.weather-box .weather {
-	  color: #FFF;
-	  font-size: 48px;
-	  font-weight: 700;
-	  text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
-	}
-	```
-
-## **💾 완성 화면**
-
-- 완성된 후 검색창에 국가나 도시 이름을 입력하면(ex: Seoul, London, Paris) 정보가 출력됩니다.
+- 완성된 후 검색창에 국가나 도시 이름을 입력하면`(ex: Seoul, London, Paris)` 정보가 출력됩니다.
 
  | <img align="center" src="https://user-images.githubusercontent.com/95972251/191903631-35c36bb9-38da-406c-b9a0-154d1670a8e0.png" alt="warm" /> | <img align="center" src="https://user-images.githubusercontent.com/95972251/191903639-ab5138e9-1e6c-482a-adda-72d6b8742d7e.png" alt="cool" /> |
  | ------------- | ------------- |
 
-## **:paperclip: 출처**
+## :paperclip: 출처
 - 출처1 : <a href="https://velog.io/@hongcoder/React%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Weather-App-%EB%A7%8C%EB%93%A4%EA%B8%B0">velog 링크</a>
 - 출처2 : <a href="https://www.youtube.com/watch?v=GuA0_Z1llYU">youtube 링크</a>
