@@ -1,9 +1,9 @@
-# ☀️ React-Weather-TypeScript 템플릿입니다.
-:octocat: 바로가기 : https://light9639.github.io/React-Weather-TypeScript/ <br /><br />
+# 🌡️ React-Weather-TypeScript 템플릿입니다.
+:octocat: 바로가기 : https://light9639.github.io/React-Weather-TypeScript/
 
-<img src="https://assets.zabbix.com/img/brands/openweather.jpg" alt="weather" width="500px" />
+![light9639 github io_React-Weather-TypeScript_](https://user-images.githubusercontent.com/95972251/220504483-36b9de04-bff4-43f2-8e5c-2c78d92c4c9e.png)
 
-**:sparkles: ☀️ React-Weather-TypeScript 템플릿입니다. :sparkles:**
+**:sparkles: 🌡️ React-Weather-TypeScript 템플릿입니다. :sparkles:**
 ## :tada: React 프로젝트 생성
 - React 생성
 ```bash
@@ -20,6 +20,8 @@ yarn create vite
 ```
 - 터미널에서 실행 후 프로젝트 이름 만든 후 React 선택, Typescirpt-SWC 선택하면 생성 완료.
 ## ⚙️ 'openweathermap' 사이트에서 API 발급받기
+<img src="https://assets.zabbix.com/img/brands/openweather.jpg" alt="weather" width="500px" />
+
 - `openweathermap` 홈페이지를 가입하고 `current weather data API`를 받아온다.
 - 발급받은 `key` 값을 `App.tsx` 상단에 밑의 코드처럼 넣으면 된다.
 ```bash
